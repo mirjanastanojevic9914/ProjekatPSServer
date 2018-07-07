@@ -27,7 +27,7 @@ public class FindPatientsSO extends GeneralSO{
     @Override
     protected void executeOperation(Object obj) throws Exception {
         List<Object> parametars = (List<Object>) obj;
-        lista = DatabaseRepository.getInstance().getListWithCriteria((String)parametars.get(0),(GenericDomainObject)parametars.get(1));
+        lista = DatabaseRepository.getInstance().returnSearchList((String)parametars.get(0),(GenericDomainObject)parametars.get(1));
     }
     
     public List<GenericDomainObject> getListPatients(){

@@ -6,8 +6,12 @@
 package businesslogic;
 
 import businesslogic.so.GeneralSO;
-import businesslogic.so.doctor.FindDoctorSO;
+import businesslogic.so.doctor.FindDoctorsSO;
 import businesslogic.so.doctor.GetListOfDoctorsSO;
+import businesslogic.so.doctor.LoginDoctorSO;
+import businesslogic.so.doctor.SaveDoctorSO;
+import businesslogic.so.doctor.UpdateDoctorSO;
+import businesslogic.so.doctor.ViewDoctorSO;
 import businesslogic.so.doctorType.GetListOfDoctorTypesSO;
 import businesslogic.so.patient.FindPatientsSO;
 import businesslogic.so.patient.GetListOfPatientsSO;
@@ -38,23 +42,19 @@ public class Controller {
 
         return instanca;
     }
-    
-    
 
-    
     public GenericDomainObject getDoctor(Doctor criteriaForSearch) throws Exception {
 
-        FindDoctorSO so = new FindDoctorSO();
+        LoginDoctorSO so = new LoginDoctorSO();
         so.executionSO(criteriaForSearch);
         return so.getDoctor();
     }
-    
+
     public List<GenericDomainObject> getAllDoctors() throws Exception {
         GetListOfDoctorsSO so = new GetListOfDoctorsSO();
         so.executionSO(new Doctor());
         return so.getListDoctors();
     }
-
 
     public List<GenericDomainObject> getAllPatients() throws Exception {
         GetListOfPatientsSO so = new GetListOfPatientsSO();
@@ -69,25 +69,53 @@ public class Controller {
     }
 
     public void savePatient(Patient patient) throws Exception {
-         SavePatientSO so = new SavePatientSO();
-         so.executionSO(patient);
+        SavePatientSO so = new SavePatientSO();
+        so.executionSO(patient);
     }
 
-    public List<GenericDomainObject> getListPatientsWithCriteria(List<Object> parametars)  throws Exception{
+    public List<GenericDomainObject> getListPatientsWithCriteria(List<Object> parametars) throws Exception {
         FindPatientsSO so = new FindPatientsSO();
         so.executionSO(parametars);
         return so.getListPatients();
     }
 
-    public Patient findPatientForDetails(Patient patientForFind)  throws Exception{
+    public Patient findPatientForDetails(Patient patientForFind) throws Exception {
         ViewPatientSO so = new ViewPatientSO();
         so.executionSO(patientForFind);
         return so.getPatient();
     }
 
-    public void updatePatient(Patient patientUpdate) throws Exception{
+    public void updatePatient(Patient patientUpdate) throws Exception {
         UpdatePatientSO so = new UpdatePatientSO();
         so.executionSO(patientUpdate);
+    }
+
+    public List<GenericDomainObject> loadListOfDoctorTypes() throws Exception {
+        GetListOfDoctorTypesSO so = new GetListOfDoctorTypesSO();
+        so.executionSO(new DoctorType());
+        return so.getListDoctorTypes();
+    }
+
+    public void saveDoctor(Doctor doc)  throws Exception{
+        SaveDoctorSO so = new SaveDoctorSO();
+        so.executionSO(doc);
+    }
+
+    public List<GenericDomainObject> getListDoctorsWithCriteria(List<Object> param) throws Exception{
+        FindDoctorsSO so = new FindDoctorsSO();
+        so.executionSO(param);
+        return so.getListDoctors();
+    }
+
+    public Doctor findDoctorForDetails(Doctor doctorForFind) throws Exception{
+        ViewDoctorSO so = new ViewDoctorSO();
+        so.executionSO(doctorForFind);
+        return so.getDoctor();
+    }
+
+    public void updateDoctor(Doctor doctorUpdate)  throws Exception{
+        UpdateDoctorSO so = new UpdateDoctorSO();
+        so.executionSO(doctorUpdate);
     }
 
 }

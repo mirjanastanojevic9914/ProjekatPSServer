@@ -173,7 +173,7 @@ public class ServerForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnStopServerActionPerformed
 
     private void btnThrowClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThrowClientActionPerformed
-        int row = tableClients.getSelectedRow();
+        /*int row = tableClients.getSelectedRow();
         if (row == -1) {
             JOptionPane.showMessageDialog(this, "Choose a row!");
         } else {
@@ -190,7 +190,7 @@ public class ServerForm extends javax.swing.JFrame {
                 Logger.getLogger(ServerForm.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(this, "Client is not thrown out.");
             }
-        }
+        }*/
     }//GEN-LAST:event_btnThrowClientActionPerformed
 
     /**

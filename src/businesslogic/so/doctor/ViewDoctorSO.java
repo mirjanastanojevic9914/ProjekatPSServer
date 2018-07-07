@@ -3,34 +3,31 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package businesslogic.so.doctorType;
+package businesslogic.so.doctor;
 
 import businesslogic.so.GeneralSO;
 import database.DatabaseRepository;
 import domain.Doctor;
-import domain.DoctorType;
-import domain.GenericDomainObject;
-import java.util.List;
+import domain.Patient;
 
 /**
  *
  * @author Mira
  */
-public class GetListOfDoctorTypesSO extends GeneralSO{
-
-    private List<GenericDomainObject> list;
-
+public class ViewDoctorSO extends GeneralSO{
+      private Doctor doctor = null;
+    
     @Override
     protected void checkCondition(Object obj) throws Exception {
-        //there is no condition
+        //there is no conditions
     }
 
     @Override
     protected void executeOperation(Object obj) throws Exception {
-        list = DatabaseRepository.getInstance().returnList((DoctorType) obj);
+        doctor = (Doctor) DatabaseRepository.getInstance().find((Doctor) obj);
     }
-     
-    public List<GenericDomainObject> getListDoctorTypes() {
-        return list;
+    
+    public Doctor getDoctor(){
+        return doctor;
     }
 }

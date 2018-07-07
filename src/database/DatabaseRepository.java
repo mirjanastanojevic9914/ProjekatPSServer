@@ -21,23 +21,18 @@ import java.util.logging.Logger;
  */
 public class DatabaseRepository {
 
-    
-    
     Connection connection;
     private static DatabaseRepository instance;
-     
+
     public DatabaseRepository() {
     }
-    
-    
+
     public static DatabaseRepository getInstance() {
         if (instance == null) {
             instance = new DatabaseRepository();
         }
         return instance;
     }
-    
-    
 
     public void loadDriver() throws Exception {
         try {
@@ -50,7 +45,7 @@ public class DatabaseRepository {
 
     public void openConnection() throws Exception {
         try {
-             DatabaseResources dbUtil = new DatabaseResources();
+            DatabaseResources dbUtil = new DatabaseResources();
 
             String url = dbUtil.getUrl();
             String username = dbUtil.getUsername();
@@ -92,7 +87,7 @@ public class DatabaseRepository {
     public List<GenericDomainObject> returnList(GenericDomainObject gdo) throws Exception {
         try {
             List<GenericDomainObject> list;
-            String sql = "SELECT * FROM " + gdo.returnTableName()+ "" + gdo.returnTableWithJoinCondition();
+            String sql = "SELECT * FROM " + gdo.returnTableName() + "" + gdo.returnTableWithJoinCondition();
             System.out.println(sql);
 
             Statement sqlStatement = connection.createStatement();
@@ -112,7 +107,7 @@ public class DatabaseRepository {
 
     public void save(GenericDomainObject gdo) throws Exception {
         try {
-            String sql = "INSERT INTO " + gdo.returnTableName()+ "(name, surname, gender, dateBirth, mobileNumber) VALUES (" + gdo.returnInsertValues()+ ")";
+            String sql = "INSERT INTO " + gdo.returnTableName() + gdo.returnNameOfAtributtesForInsert() + " VALUES (" + gdo.returnInsertValues() + ")";
             System.out.println(sql);
 
             Statement sqlStatement = connection.createStatement();
@@ -146,9 +141,7 @@ public class DatabaseRepository {
 
     public void update(GenericDomainObject gdo) throws Exception {
         try {
-            
-            
-            
+
             String sql = "UPDATE " + gdo.returnTableName() + " SET " + gdo.returnUpdateValues() + " WHERE " + gdo.returnConditionWithID();
             System.out.println(sql);
 
@@ -178,7 +171,7 @@ public class DatabaseRepository {
     public List<GenericDomainObject> returnSearchList(String criteria, GenericDomainObject gdo) throws Exception {
         try {
             List<GenericDomainObject> list;
-            String sql = "SELECT * FROM " + gdo.returnTableName() + "" + gdo.returnTableWithJoinCondition() + " " + gdo.returnSearchCriteria(criteria);
+            String sql = "SELECT * FROM " +  gdo.returnTableName() + " " + gdo.returnTableWithJoinCondition() + " " + gdo.returnSearchCriteria(criteria);
             System.out.println(sql);
 
             Statement sqlStatement = connection.createStatement();
@@ -195,26 +188,49 @@ public class DatabaseRepository {
             throw new Exception("Loading objects was unsuccessful!", ex);
         }
     }
-     public List<GenericDomainObject> getListWithCriteria(String criteria, GenericDomainObject gdo) throws Exception{
-         try {
+
+    /*public List<GenericDomainObject> getListWithCriteria(String criteria, GenericDomainObject gdo) throws Exception {
+        try {
             List<GenericDomainObject> list;
-            String sql = "SELECT * FROM " + gdo.returnTableName()+" "+gdo.returnTableWithJoinCondition()+" "+gdo.returnSearchCriteria(criteria);
+            String sql = "SELECT * FROM " + gdo.returnTableName() + " " + gdo.returnTableWithJoinCondition() + " " + gdo.returnSearchCriteria(criteria);
             System.out.println(sql);
-            
+
             Statement sqlStatement = connection.createStatement();
             ResultSet rs = sqlStatement.executeQuery(sql);
-            
+
             list = gdo.fill(rs);
-            
+
             rs.close();
             sqlStatement.close();
-            
+
             return list;
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
             throw new Exception("Loading objects was unsuccessful!", ex);
         }
-    }
-    
-     
+    }*/
+
+     public List<GenericDomainObject> getObjectWithCriteriaForLogin(String criteria, GenericDomainObject gdo) throws Exception {
+           try {
+            List<GenericDomainObject> list;
+            String sql = "SELECT * FROM "  +  gdo.returnTableName() + " " + gdo.returnTableWithJoinCondition() + " " + gdo.returnSearchCriteriaForLogin(criteria);
+            System.out.println(sql);
+
+            Statement sqlStatement = connection.createStatement();
+            ResultSet rs = sqlStatement.executeQuery(sql);
+
+            list = gdo.fill(rs);
+
+            rs.close();
+            sqlStatement.close();
+
+            return list;
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+            throw new Exception("Loading objects was unsuccessful!", ex);
+        }
+     }
+
 }
+
+

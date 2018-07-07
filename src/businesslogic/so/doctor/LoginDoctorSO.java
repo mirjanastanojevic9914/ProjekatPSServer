@@ -10,14 +10,13 @@ import database.DatabaseRepository;
 import domain.Doctor;
 import domain.GenericDomainObject;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
  * @author Mira
  */
-public class FindDoctorSO extends GeneralSO{
-     ArrayList<GenericDomainObject> odoList;
+public class LoginDoctorSO extends GeneralSO{
+      ArrayList<GenericDomainObject> odoList;
 
     @Override
     protected void checkCondition(Object obj) throws Exception {
@@ -28,7 +27,7 @@ public class FindDoctorSO extends GeneralSO{
     protected void executeOperation(Object obj) throws Exception {
         Doctor doctor = (Doctor) obj;
         String criteria = doctor.getName()+ "/" + doctor.getSurname() + "/" + doctor.getPassword();
-        odoList = (ArrayList<GenericDomainObject>) DatabaseRepository.getInstance().returnSearchList(criteria, doctor);
+        odoList = (ArrayList<GenericDomainObject>) DatabaseRepository.getInstance().getObjectWithCriteriaForLogin(criteria, doctor);
     }
     
     public GenericDomainObject getDoctor() {

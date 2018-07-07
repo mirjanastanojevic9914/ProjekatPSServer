@@ -27,7 +27,6 @@ import transfer.response.ResponseObject;
 import transfer.util.EnumResponseStatus;
 import transfer.util.IOperation;
 
-
 /**
  *
  * @author Stefana
@@ -110,13 +109,13 @@ public class Server {
                     Controller.getInstanca().savePatient(patient);
                     responseObject.setResponseStatus(EnumResponseStatus.OK);
                     responseObject.setMessage("Succesfully saved patient!");
-                    break;  
+                    break;
                 case IOperation.GET_PATIENTS_WITH_CRITERIA:
                     List<Object> parametars = (List<Object>) requestObject.getRequest();
                     List<GenericDomainObject> listPatientWithCriteria = Controller.getInstanca().getListPatientsWithCriteria(parametars);
                     responseObject.setResponse(listPatientWithCriteria);
                     responseObject.setResponseStatus(EnumResponseStatus.OK);
-                    break;  
+                    break;
                 case IOperation.FIND_PATIENT_FOR_DETAILS:
                     Patient patientForFind = (Patient) requestObject.getRequest();
                     Patient foundPatient = Controller.getInstanca().findPatientForDetails(patientForFind);
@@ -129,7 +128,36 @@ public class Server {
                     responseObject.setResponseStatus(EnumResponseStatus.OK);
                     responseObject.setMessage("Succesfully updated patient!");
                     break;
-                    
+                case IOperation.GET_LIST_DOCTOR_TYPES_CB:
+                    List<GenericDomainObject> listDoctorTypes = Controller.getInstanca().loadListOfDoctorTypes();
+                    responseObject.setResponse(listDoctorTypes);
+                    responseObject.setResponseStatus(EnumResponseStatus.OK);
+                    responseObject.setMessage("Succesfully loaded doctor types!");
+                    break;
+                case IOperation.SAVE_DOCTOR:
+                    Doctor doc = (Doctor) requestObject.getRequest();
+                    Controller.getInstanca().saveDoctor(doc);
+                    responseObject.setResponseStatus(EnumResponseStatus.OK);
+                    responseObject.setMessage("Succesfully saved doctor!");
+                    break;
+                case IOperation.GET_DOCTORS_WITH_CRITERIA:
+                    List<Object> param = (List<Object>) requestObject.getRequest();
+                    List<GenericDomainObject> listDoctorsWithCriteria = Controller.getInstanca().getListDoctorsWithCriteria(param);
+                    responseObject.setResponse(listDoctorsWithCriteria);
+                    responseObject.setResponseStatus(EnumResponseStatus.OK);
+                    break;
+                case IOperation.FIND_DOCTOR_FOR_DETAILS:
+                    Doctor doctorForFind = (Doctor) requestObject.getRequest();
+                    Doctor foundDoctor = Controller.getInstanca().findDoctorForDetails(doctorForFind);
+                    responseObject.setResponse(foundDoctor);
+                    responseObject.setResponseStatus(EnumResponseStatus.OK);
+                    break;
+                case IOperation.UPDATE_DOCTOR:
+                    Doctor doctortUpdate = (Doctor) requestObject.getRequest();
+                    Controller.getInstanca().updateDoctor(doctortUpdate);
+                    responseObject.setResponseStatus(EnumResponseStatus.OK);
+                    responseObject.setMessage("Succesfully updated patient!");
+                    break;
                 default:
                     responseObject.setResponseStatus(EnumResponseStatus.ERROR);
             }
@@ -139,4 +167,4 @@ public class Server {
         }
         return responseObject;
     }
- }
+}
